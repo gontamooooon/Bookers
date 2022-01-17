@@ -11,7 +11,7 @@ class BooksController < ApplicationController
       render :index
     end
   end
-  
+
   def index
     @book = Book.new
     @books = Book.all
@@ -24,7 +24,7 @@ class BooksController < ApplicationController
   def edit
     @book = Book.find(params[:id])
   end
-  
+
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
@@ -34,19 +34,19 @@ class BooksController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
-   @book = Book.find(params[:id])
-   @book.destroy #destroyメソッドを使用し対象のツイートを削除する。
+   book = Book.find(params[:id])
+   book.destroy #destroyメソッドを使用し対象のツイートを削除する。
   # リダイレクトと同時に'Book was successfully destroyed'を表示。
+   flash[:notice] = 'Book was successfully destroyed.'
    redirect_to books_path
-  flash[:notice] = 'Book was successfully destroyed.'
   end
-  
+
   private
   # ストロングパラメータ
   def book_params
     params.require(:book).permit(:title, :body)
   end
-  
+
 end
